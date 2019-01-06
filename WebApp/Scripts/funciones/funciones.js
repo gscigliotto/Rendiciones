@@ -1,9 +1,9 @@
-﻿function MostrarRendiciones(id) {
+﻿function MostrarRendiciones(id,fecha) {
     jQuery.ajax({
         url: 'Index.aspx/GetRendiciones',
         type: "POST",
         dataType: "json",
-        data: "{'id': '" + id + "'}",
+        data: "{'id': '" + id + "','fecha':'"+fecha+"'}",
         contentType: "application/json; charset=utf-8",
         success: OnSuccess,
         failure: function (response) {
@@ -15,7 +15,7 @@
     });
     return false;
 }
-
+var id_lote;
 function OnSuccess(response) {
     $('#rendicion-tab').removeClass('disabled');
     $('.nav-tabs a[href="#rendicion"]').tab('show');
@@ -26,7 +26,7 @@ function OnSuccess(response) {
         //alert(response.d[i].IdLote);  // (o el campo que necesites)
         var customer = $(this);
         var enableEdit = "";
-
+        id_lote = response.d[i].IdLote;
         $("td", row).eq(0).html(response.d[i].IdLote);
 
         $("td", row).eq(1).html(response.d[i].Descripcion);
@@ -178,8 +178,222 @@ function OnSuccessFacturasDetalle(response) {
 
 }
 
+function enviarFormulario() {
+    var valid;
+    var caja = $('#numeroCaja').val();
+    var fecha = $('#fechaCaja').val();
 
+    if (caja == 0) {
+        $('#numeroCajaValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#numeroCajaValid').removeClass('d-block');
+        valid = true;
+    }
+
+
+    if (fecha == "") {
+        $('#fechaCajaValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#fechaCajaValid').removeClass('d-block');
+        valid = true;
+    }
+
+
+
+
+    if (!valid) {
+        return false;
+    }
+    else {
+        MostrarRendiciones(caja, fecha);
+    }
+}
 
 function deshabtabs() {
     $('#rendicion-tab').addClass('disabled');
+}
+
+
+function validarRendicion() {
+    var valid = "";
+    var idLote = $('#IdLote').val();
+    var periodo = $('#periodo').val();
+    var estado = $('#estadoRendicion').val();
+    var nrocaja = $('#nrocaja').val();
+    var operador = $('#operador').val();
+    var fechacarga = $('#fechacarga').val();
+    var descripcion = $('#descripcion').val();
+    var tiporendicion = $('#tiporendicion').val();
+    var monto = $('#monto').val();
+    var adelantos = $('#adelantos').val();
+    var motivo = $('#motivo').val();
+
+    if (idLote == "") {
+        $('#IdLoteValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#IdLoteValid').removeClass('d-block');
+        valid = true;
+    }
+ 
+    
+    if (periodo == "") {
+        $('#periodoValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#periodoValid').removeClass('d-block');
+        valid = true;
+    }
+
+    if (estado == "") {
+        $('#estadoRendicionValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#estadoRendicionValid').removeClass('d-block');
+        valid = true;
+    }
+
+
+
+    if (nrocaja == "") {
+        $('#nrocajaValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#nrocajaValid').removeClass('d-block');
+        valid = true;
+    }
+
+
+
+
+    if (operador == "") {
+        $('#operadorValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#operadorValid').removeClass('d-block');
+        valid = true;
+    }
+    if (fechacarga == "") {
+        $('#fechacargaValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#fechacargaValid').removeClass('d-block');
+        valid = true;
+    }
+
+    if (descripcion == "") {
+        $('#descripcionValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#descripcionValid').removeClass('d-block');
+        valid = true;
+    }
+
+    if (tiporendicion == "") {
+        $('#tiporendicionValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#tiporendicionValid').removeClass('d-block');
+        valid = true;
+    }
+    /*
+    if (monto == "") {
+        $('#montoValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#montoValid').removeClass('d-block');
+        valid = true;
+    }
+    */
+    if (adelantos == "") {
+        $('#adelantosValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#adelantosValid').removeClass('d-block');
+        valid = true;
+    }
+
+    if (motivo == "") {
+        $('#motivoValid').addClass('d-block');
+        valid = false;
+    } else {
+        $('#motivoValid').removeClass('d-block');
+        valid = true;
+    }
+
+    if (!valid) {
+        return false;
+    }
+    else {
+        var jsonRendicion = {
+            "IdLote": id_lote,
+            "Periodo": periodo,
+            "Descripcion": descripcion,
+            "NroCajaChica": nrocaja,
+            "OperadorCarga": operador,
+            //"FechaCarga": fechacarga,
+            "FechaCarga": null,
+            "MontoTotalRendicion": monto,
+            "TipoRendicion":tiporendicion,
+            "EstadoRendicion": estado,
+            "BajaModificacionEstado": estado,
+            "BajaModificacionFecha": null,
+            "MotivoRechazo": motivo,
+            "AdelantosEnEfectivo": adelantos,
+            "IncrementoAdelantosEnEfectivo":null,
+            "Borrador": 1
+
+        }
+        CreateRendicion(jsonRendicion);
+    }
+
+
+    function CreateRendicion(jsonRendicion) {
+        jQuery.ajax({
+            url: 'Index.aspx/CreateRendicion',
+            type: "POST",
+            dataType: "json",
+            data: "{'rendicion': '" + jsonRendicion + "'}",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $('#rendicionModalAltaEdit').modal('hide')
+                limpiarRendicion();
+
+            },
+            failure: function (response) {
+                alert(response.d);
+                $('#rendicionMsg').html(response.d);
+                $('#rendicionMsg').removeClass('d-none');
+            },
+            error: function (response) {
+                var obj = jQuery.parseJSON(response.responseJSON);
+                $('#rendicionMsg').html(obg.Message);
+                $('#rendicionMsg').removeClass('d-none');
+            }
+        });
+        return false;
+
+
+    }
+
+    function limpiarRendicion() {
+
+        $('#IdLote').val("");
+        $('#periodo').val("");
+        $('#estadoRendicion').val("");
+        $('#nrocaja').val("");
+        $('#operador').val("");
+        $('#fechacarga').val("");
+        $('#descripcion').val("");
+        $('#tiporendicion').val("");
+        $('#monto').val("");
+        $('#adelantos').val("");
+        $('#motivo').val("");
+
+
+    }
+
+
 }

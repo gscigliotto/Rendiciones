@@ -22,7 +22,7 @@ namespace WebApp
         }
 
         [WebMethod()]
-        public static List<Rendicion> GetRendiciones(string id)
+        public static List<Rendicion> GetRendiciones(string id,string fecha)
         {
             List<Rendicion> rendiciones = new List<Rendicion>();
             Rendicion rendicion = new Rendicion(1,2018,"Descripcion",2,"Carlos Gomez",DateTime.Now,1000,2,1,1, DateTime.Now, "",0,0,1);
@@ -93,6 +93,16 @@ namespace WebApp
             dummy.Rows.Add();
             rendiciones.DataSource = dummy;
             rendiciones.DataBind();
+
+        }
+
+
+
+
+        [WebMethod()]
+        public static int CreateRendicion(string rendicion) {
+            //throw new Exception("Mensaje de Validacion prueba");
+            return 100;
 
         }
 
