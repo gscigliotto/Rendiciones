@@ -1,6 +1,9 @@
-﻿function MostrarRendiciones(id,fecha) {
+﻿var Pagename = "Index.aspx";
+
+
+function MostrarRendiciones(id, fecha) {
     jQuery.ajax({
-        url: 'Index.aspx/GetRendiciones',
+        url: Pagename+'/GetRendiciones',
         type: "POST",
         dataType: "json",
         data: "{'id': '" + id + "','fecha':'"+fecha+"'}",
@@ -47,7 +50,7 @@ function OnSuccess(response) {
 }
 function ObtenerFacturas(id) {
     jQuery.ajax({
-        url: 'Index.aspx/GetFacturas',
+        url: Pagename+'/GetFacturas',
         type: "POST",
         dataType: "json",
         data: "{'id': '" + id + "'}",
@@ -106,7 +109,7 @@ function OnSuccessFacturas(response) {
 
 function ObtenerFacturasDetalle(id, id_doc, CUIT, a_doc) {
     jQuery.ajax({
-        url: 'Index.aspx/GetFacturasDetalle',
+        url: Pagename+'/GetFacturasDetalle',
         type: "POST",
         dataType: "json",
         data: "{'id': " + id + ",'idDocumento':" + id_doc + ",'CUIT':'" + CUIT + "','ejercicio':" + a_doc + "}",
@@ -201,7 +204,7 @@ function deshabtabs() {
 
 
 function validarRendicion() {
-    var valid = "";
+    var valid = true;
     var idLote = $('#IdLote').val();
     var periodo = $('#periodo').val();
     var estado = $('#estadoRendicion').val();
@@ -214,7 +217,7 @@ function validarRendicion() {
     var adelantos = $('#adelantos').val();
     var motivo = $('#motivo').val();
 
-    if (idLote == "") {
+    if ((idLote == "")&&(valid)) {
         $('#IdLoteValid').addClass('d-block');
         valid = false;
     } else {
@@ -223,7 +226,7 @@ function validarRendicion() {
     }
  
     
-    if (periodo == "") {
+    if ((periodo == "") && (valid)) {
         $('#periodoValid').addClass('d-block');
         valid = false;
     } else {
@@ -231,7 +234,7 @@ function validarRendicion() {
         valid = true;
     }
 
-    if (estado == "") {
+    if ((estado == "") && (valid)) {
         $('#estadoRendicionValid').addClass('d-block');
         valid = false;
     } else {
@@ -241,7 +244,7 @@ function validarRendicion() {
 
 
 
-    if (nrocaja == "") {
+    if ((nrocaja == "") && (valid)) {
         $('#nrocajaValid').addClass('d-block');
         valid = false;
     } else {
@@ -252,14 +255,14 @@ function validarRendicion() {
 
 
 
-    if (operador == "") {
+    if ((operador == "") && (valid)) {
         $('#operadorValid').addClass('d-block');
         valid = false;
     } else {
         $('#operadorValid').removeClass('d-block');
         valid = true;
     }
-    if (fechacarga == "") {
+    if ((fechacarga == "") && (valid)) {
         $('#fechacargaValid').addClass('d-block');
         valid = false;
     } else {
@@ -267,7 +270,7 @@ function validarRendicion() {
         valid = true;
     }
 
-    if (descripcion == "") {
+    if ((descripcion == "") && (valid)) {
         $('#descripcionValid').addClass('d-block');
         valid = false;
     } else {
@@ -275,7 +278,7 @@ function validarRendicion() {
         valid = true;
     }
 
-    if (tiporendicion == "") {
+    if ((tiporendicion == "") && (valid)) {
         $('#tiporendicionValid').addClass('d-block');
         valid = false;
     } else {
@@ -291,7 +294,7 @@ function validarRendicion() {
         valid = true;
     }
     */
-    if (adelantos == "") {
+    if ((adelantos == "" || !adelantos.match(/^\d{0,2}(?:\.\d{0,2}){0,1}$/)) && (valid)) {
         $('#adelantosValid').addClass('d-block');
         valid = false;
     } else {
@@ -299,7 +302,7 @@ function validarRendicion() {
         valid = true;
     }
 
-    if (motivo == "") {
+    if ((motivo == "") && (valid)) {
         $('#motivoValid').addClass('d-block');
         valid = false;
     } else {
@@ -318,15 +321,15 @@ function validarRendicion() {
             "NroCajaChica": nrocaja,
             "OperadorCarga": operador,
             "FechaCarga": fechacarga,
-            //"FechaCarga": null,
-            "MontoTotalRendicion": monto,
+            "FechaCarga": "",
+            //"MontoTotalRendicion": monto,
             "TipoRendicion":tiporendicion,
             "EstadoRendicion": estado,
             "BajaModificacionEstado": estado,
-            "BajaModificacionFecha": null,
+            "BajaModificacionFecha": "",
             "MotivoRechazo": motivo,
             "AdelantosEnEfectivo": adelantos,
-            "IncrementoAdelantosEnEfectivo":null,
+           // "IncrementoAdelantosEnEfectivo":"",
             "Borrador": 1
 
         }
@@ -337,10 +340,11 @@ function validarRendicion() {
     function CreateRendicion(jsonRendicion) {
         var json = JSON.stringify(jsonRendicion);
         jQuery.ajax({
-            url: 'Index.aspx/CreateRendicion',
+            url: Pagename+'/CreateRendicion',
             type: "POST",
             dataType: "json",
-            data: "{'rendicion': '" + json + "'}",
+            data: "{'rendicion': " + json + "}",
+            //data:{obj:  json },
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 $('#rendicionModalAltaEdit').modal('hide')
@@ -353,8 +357,7 @@ function validarRendicion() {
                 $('#rendicionMsg').removeClass('d-none');
             },
             error: function (response) {
-                var obj = jQuery.parseJSON(response.responseJSON);
-                $('#rendicionMsg').html(obg.Message);
+                $('#rendicionMsg').html(response.responseJSON.Message);
                 $('#rendicionMsg').removeClass('d-none');
             }
         });
@@ -364,7 +367,7 @@ function validarRendicion() {
     }
 
     function limpiarRendicion() {
-
+        /*
         $('rendicionMsg').html('');
         $('#rendicionMsg').removeClass('d-none');
         $('#rendicionMsg').addClass('d-none');
@@ -379,7 +382,9 @@ function validarRendicion() {
         $('#monto').val("");
         $('#adelantos').val("");
         $('#motivo').val("");
-
+        */
+        
+        $('#rendicionMsg').removeClass('d-none');
 
     }
 

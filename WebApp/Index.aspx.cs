@@ -117,7 +117,18 @@ namespace WebApp
             return 100;
 
         }
+        [WebMethod()]
+        public static int CreateRendicion(Rendicion rendicion)
+        {
+            //JObject json = JObject.Parse(rendicion);
+            // if ((string)json.GetValue("IdLote") == "0") {
 
+            throw new Exception("Mensaje de Validacion prueba");
+            //}
+
+            return 100;
+
+        }
 
     }
 }

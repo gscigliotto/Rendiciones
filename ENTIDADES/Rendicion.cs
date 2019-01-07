@@ -8,6 +8,7 @@ namespace ENTIDADES
 {
     public class Rendicion
     {
+       
 
         public int IdLote { get; set; }
         public int Periodo { get; set; }

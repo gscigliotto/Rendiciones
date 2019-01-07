@@ -118,7 +118,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="periodo">Periodo</label>
-                            <input type="date" class="form-control" id="periodo">
+                            <input type="text" class="form-control" id="periodo">
                             <div class="invalid-feedback" id="periodoValid">Debe ingresar un periodo valido</div>
 
                         </div>
