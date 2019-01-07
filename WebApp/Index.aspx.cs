@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Web.Services;
 using System.Web.Script.Services;
 using ENTIDADES;
+using Newtonsoft.Json.Linq;
 
 namespace WebApp
 {
@@ -24,6 +25,10 @@ namespace WebApp
         [WebMethod()]
         public static List<Rendicion> GetRendiciones(string id,string fecha)
         {
+   
+
+            ENTIDADES.Rendicion rendiview = new ENTIDADES.Rendicion();
+
             List<Rendicion> rendiciones = new List<Rendicion>();
             Rendicion rendicion = new Rendicion(1,2018,"Descripcion",2,"Carlos Gomez",DateTime.Now,1000,2,1,1, DateTime.Now, "",0,0,1);
             Rendicion rendicionPdos = new Rendicion(2, 2018, "Descripcion", 2, "Carlos Gomez", DateTime.Now, 1000, 2, 1, 1, DateTime.Now, "", 0, 0, 0);
@@ -37,6 +42,8 @@ namespace WebApp
         [WebMethod()]
         public static List<Factura> GetFacturas(string id)
         {
+
+
             List<Factura> facturas = new List<Factura>();
             Factura factura = new Factura();
             factura.Agrupamiento = "Agrupamiento";
@@ -101,7 +108,12 @@ namespace WebApp
 
         [WebMethod()]
         public static int CreateRendicion(string rendicion) {
-            //throw new Exception("Mensaje de Validacion prueba");
+            //JObject json = JObject.Parse(rendicion);
+           // if ((string)json.GetValue("IdLote") == "0") {
+
+                throw new Exception("Mensaje de Validacion prueba");
+            //}
+
             return 100;
 
         }

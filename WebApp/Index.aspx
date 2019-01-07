@@ -63,24 +63,7 @@
                     </div>
                 </div>
             </form>
-            <br />
-            <!--
-            <asp:GridView ID="Lotes" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource" GridLines="None" AllowPaging="True" CssClass="table table-striped">
-                <Columns>
-                    <asp:BoundField DataField="ReIdLote" HeaderText="Lote" SortExpression="Lote" />
-                    <asp:BoundField DataField="fechaLote" HeaderText="Fecha" SortExpression="Fecha" />
-                    <asp:BoundField DataField="descripcion" HeaderText="Descripción" SortExpression="Descripción" />
-
-                    <asp:TemplateField HeaderText=" ">
-                        <ItemTemplate>
-                            <asp:LinkButton ID="lnkClick" OnClientClick='<%#String.Format("return MostrarRendiciones({0});", Eval("ReIdLote")) %>' runat="server"> Ver. </asp:LinkButton>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-                </Columns>
-            </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [ReIdLote], [fechaLote], [descripcion] FROM [LOTE]"></asp:SqlDataSource>
-        -->
+            
         </div>
 
         <div class="tab-pane fade" id="rendicion" role="tabpanel" aria-labelledby="rendicion-tab">
@@ -412,13 +395,13 @@
         $('#rendicionModalAltaEdit').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget); // Button that triggered the modal
             var id = button.data('whatever'); // Extract info from data-* attributes
-            $('#rendicionModalAltaEdit').css("zIndex", "1040 !important");
+            //$('#rendicionModalAltaEdit').css("zIndex", "1040 !important");
             //limpiarRendicion();
             //$('#modalFacturas').modal('toggle');
             //alert(id_lote);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this);
+            //var modal = $(this);
             //modal.find('.modal-title').text('New message to ' + recipient)
             //modal.find('.modal-body input').val(recipient)
         });
@@ -430,7 +413,7 @@
             ObtenerFacturas(id);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this);
+            //var modal = $(this);
             //modal.find('.modal-title').text('New message to ' + recipient)
             //modal.find('.modal-body input').val(recipient)
         });
@@ -439,8 +422,8 @@
 
             var button = $(event.relatedTarget); // Button that triggered the modal
             var id = button.data('whatever'); // Extract info from data-* attributes
-            $('#modalCabFacturas').css("zIndex", "1040 !important");
-            $('#rendicionModalAltaEdit').css("zIndex", "-1040 !important");
+            // $('#modalCabFacturas').css("zIndex", "1040 !important");
+            //$('#rendicionModalAltaEdit').css("zIndex", "-1040 !important");
             // alert(id);
             //ObtenerFacturas(id);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -466,7 +449,7 @@
             ObtenerFacturasDetalle(id_lote, id_documento, CUIT, ejercicio);
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this);
+            //var modal = $(this);
             //modal.find('.modal-title').text('New message to ' + recipient)
             //modal.find('.modal-body input').val(recipient)
         });

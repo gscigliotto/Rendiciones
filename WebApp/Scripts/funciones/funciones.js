@@ -155,22 +155,6 @@ function OnSuccessFacturasDetalle(response) {
         $("td", rowFila).eq(10).html(response.d.Detalle[i].Importe);
 
 
-        //ConceptoGasto: "Gastos Corrientes"
-        //DescripcionDelGasto: "Sueldo"
-        //Importe: 100
-        //NroRenglonDelGasto: 1
-        //ObjetoDelGasto: "1.1.2"
-        //__proto__: Object
-
-
-        //$("td", row).eq(7).html($("<button type='button' class='btn btn-secondary btn-sm mr-3' data-toggle='modal' data-target='#modalDetFacturas' data-whatever='" + response.d[i].IdLote + "," + response.d[i].NroDocumento + "," + response.d[i].Cuit + "," + response.d[i].AnioFactura + "'>Detalle</button>", this));
-        //if (response.d[i].Estado == "1") {
-        //    enableEdit = '';
-        //} else {
-        // enableEdit = 'disabled'; DEJO QUE SIEMPRE TODAS SE PUEDA EDITAR
-        //}
-        // $("td", rowFila).eq(11).append($("<button " + enableEdit + " type='button' class='btn btn-secondary btn-sm " + enableEdit + "' data-toggle='modal' data-target='#modalCabFacturas' data-whatever='" + response.d[i].IdLote + "'>Editar</button>", this));
-
         $("[id=Detallefacturas]").append(rowFila);
         //alert(rowFila)
         rowFila = $("[id*=Detallefacturas] tr:last-child").clone(true);
@@ -328,13 +312,13 @@ function validarRendicion() {
     }
     else {
         var jsonRendicion = {
-            "IdLote": id_lote,
+            "IdLote": idLote,
             "Periodo": periodo,
             "Descripcion": descripcion,
             "NroCajaChica": nrocaja,
             "OperadorCarga": operador,
-            //"FechaCarga": fechacarga,
-            "FechaCarga": null,
+            "FechaCarga": fechacarga,
+            //"FechaCarga": null,
             "MontoTotalRendicion": monto,
             "TipoRendicion":tiporendicion,
             "EstadoRendicion": estado,
@@ -351,11 +335,12 @@ function validarRendicion() {
 
 
     function CreateRendicion(jsonRendicion) {
+        var json = JSON.stringify(jsonRendicion);
         jQuery.ajax({
             url: 'Index.aspx/CreateRendicion',
             type: "POST",
             dataType: "json",
-            data: "{'rendicion': '" + jsonRendicion + "'}",
+            data: "{'rendicion': '" + json + "'}",
             contentType: "application/json; charset=utf-8",
             success: function (response) {
                 $('#rendicionModalAltaEdit').modal('hide')
@@ -380,6 +365,9 @@ function validarRendicion() {
 
     function limpiarRendicion() {
 
+        $('rendicionMsg').html('');
+        $('#rendicionMsg').removeClass('d-none');
+        $('#rendicionMsg').addClass('d-none');
         $('#IdLote').val("");
         $('#periodo').val("");
         $('#estadoRendicion').val("");

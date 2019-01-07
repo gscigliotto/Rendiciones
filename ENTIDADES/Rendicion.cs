@@ -24,7 +24,7 @@ namespace ENTIDADES
         public double AdelantosEnEfectivo { get; set; }
         public double IncrementoAdelantosEnEfectivo { get; set; }
         public int Borrador { get; set; }
-
+        public Rendicion() { }
         public Rendicion(int IdLote,int Periodo,string Descripcion,int NroCajaChica, string OperadorCarga, DateTime FechaCarga,double MontoTotalRendicion,int TipoRendicion,int EstadoRendicion,
             int BajaModificacionEstado, DateTime BajaModificacionFecha, string MotivoRechazo, double AdelantosEnEfectivo,double IncrementoAdelantosEnEfectivo, int Borrador) {
             this.IdLote = IdLote;
