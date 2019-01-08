@@ -3,10 +3,10 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
 
-    <script src="Scripts/funciones/funciones.js">
-
-
-    </script>
+    <script src="Scripts/funciones/funciones.js"></script>
+    <script src="Scripts/dist/jquery.validate.js"></script>
+    <script src="Scripts/dist/additional-methods.js"></script>
+    
     <p class="h3">Carga de Rendición de caja chica</p>
     <br />
     <!-- Navegation -->
@@ -174,7 +174,7 @@
                         <div class="form-group col-md-4">
                             <label for="estado">Adelantos en Efectivo</label>
                             <input type="text" class="form-control" id="adelantos" placeholder="Adelantos en Efectivo">
-                            <div class="invalid-feedback" id="adelantosValid">Debe ingresar un adelanto valido</div>
+                            <div class="invalid-feedback" id="adelantosValid">Debe ingresar un adelanto valido (,) Separador de decimales y hasta 2.</div>
                         </div>
                     </div>
                     <div class="form-row">

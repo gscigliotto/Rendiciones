@@ -204,6 +204,8 @@ function deshabtabs() {
 
 
 function validarRendicion() {
+
+
     var valid = true;
     var idLote = $('#IdLote').val();
     var periodo = $('#periodo').val();
@@ -217,73 +219,89 @@ function validarRendicion() {
     var adelantos = $('#adelantos').val();
     var motivo = $('#motivo').val();
 
-    if ((idLote == "")&&(valid)) {
+    if (idLote == "") {
         $('#IdLoteValid').addClass('d-block');
         valid = false;
     } else {
         $('#IdLoteValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
  
     
-    if ((periodo == "") && (valid)) {
+    if (periodo == "")  {
         $('#periodoValid').addClass('d-block');
         valid = false;
     } else {
         $('#periodoValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
-    if ((estado == "") && (valid)) {
+    if (estado == "") {
         $('#estadoRendicionValid').addClass('d-block');
         valid = false;
     } else {
         $('#estadoRendicionValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
 
 
-    if ((nrocaja == "") && (valid)) {
+    if (nrocaja == "") {
         $('#nrocajaValid').addClass('d-block');
         valid = false;
     } else {
         $('#nrocajaValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
 
 
 
-    if ((operador == "") && (valid)) {
+    if (operador == ""){
         $('#operadorValid').addClass('d-block');
         valid = false;
     } else {
         $('#operadorValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
-    if ((fechacarga == "") && (valid)) {
+    if (fechacarga == ""){
         $('#fechacargaValid').addClass('d-block');
         valid = false;
     } else {
         $('#fechacargaValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
-    if ((descripcion == "") && (valid)) {
+    if (descripcion == ""){
         $('#descripcionValid').addClass('d-block');
         valid = false;
     } else {
         $('#descripcionValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
-    if ((tiporendicion == "") && (valid)) {
+    if (tiporendicion == "") {
         $('#tiporendicionValid').addClass('d-block');
         valid = false;
     } else {
         $('#tiporendicionValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
     /*
     if (monto == "") {
@@ -294,20 +312,24 @@ function validarRendicion() {
         valid = true;
     }
     */
-    if ((adelantos == "" || !adelantos.match(/^\d{0,2}(?:\.\d{0,2}){0,1}$/)) && (valid)) {
+    if ((adelantos == "" )|| (!adelantos.match(/^\d{0,2}(?:\.\d{0,2}){0,1}$/))) {
         $('#adelantosValid').addClass('d-block');
         valid = false;
     } else {
         $('#adelantosValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
-    if ((motivo == "") && (valid)) {
+    if (motivo == "") {
         $('#motivoValid').addClass('d-block');
         valid = false;
     } else {
         $('#motivoValid').removeClass('d-block');
-        valid = true;
+        if (valid) {
+            valid = true;
+        }
     }
 
     if (!valid) {
